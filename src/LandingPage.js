@@ -30,6 +30,7 @@ export const LandingPage = () => {
   // Fetching data in 1st dropdown
   var option = ["select"];
 
+  var option1 = ["--select--"];
   if (output.data.data !== undefined) {
     output.data.data.forEach((element) => {
       let obj = {
@@ -37,6 +38,7 @@ export const LandingPage = () => {
         value: element.name,
       };
       option.push(obj);
+      option1.push(obj);
     });
   }
   var temp = [];
@@ -56,7 +58,7 @@ export const LandingPage = () => {
           <div>
             <Select
               key={Math.random()}
-              options={option}
+              options={option1}
               value={val}
               label="Sub-Category"
             ></Select>

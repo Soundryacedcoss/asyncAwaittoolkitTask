@@ -29,6 +29,7 @@ export const LandingPage = () => {
   }
   // Fetching data in 1st dropdown
   var option = ["select"];
+
   if (output.data.data !== undefined) {
     output.data.data.forEach((element) => {
       let obj = {
@@ -52,9 +53,17 @@ export const LandingPage = () => {
       if (val === output.data.data[i].name && output.data.data[i].hasChildren) {
         setParentId(output.data.data[i].parent_id);
         temp.push(
-          <Select key={Math.random()} options={option} value={val} label="Sub-Category"></Select>
+          <div>
+            <Select
+              key={Math.random()}
+              options={option}
+              value={val}
+              label="Sub-Category"
+            ></Select>
+          </div>
         );
         setDropDown([...dropDown, temp]);
+
         // If leaf node is false then fetching attributs of that option
       } else if (!output.data.data[i].hasChildren) {
         attributesData(
@@ -95,32 +104,27 @@ export const LandingPage = () => {
   const [tableVal, setTableVal] = useState([]);
   // ADD BUTTON FUNCTINALITY ....
   const AddHandler = () => {
-    if (input==="" && FirstOPtion==="--Select--") {
-      alert("please fill boxes")
-    }
-    else{
+    if (input === "" && FirstOPtion === "--Select--") {
+      alert("please fill boxes");
+    } else {
       var obj = {
         input: input,
         attributesValue: AtributeOPtion,
       };
       setTableVal([...tableVal, obj]);
       arr.push(obj);
-      setInput("")
-      setAtributeOPtion("--Select--")
+      setInput("");
+      setAtributeOPtion("--Select--");
     }
-    
   };
-
+  console.log(FirstOPtion);
   return (
     <>
       {loader ? <LinearProgress /> : null}
-
       <h2 style={{ fontSize: "3vw", marginBottom: "2%", marginTop: "2%" }}>
         Async Await and promises
       </h2>
-
       <div className="dropdown">
-        <div></div>
         <div>
           <br />
           {/* Showing selected option  */}
@@ -133,13 +137,17 @@ export const LandingPage = () => {
           <div className="SubCategory">{dropDown}</div>
           <br />
           {/* Main category dropdown..... */}
-          <Select
-            options={option}
-            value={FirstOPtion}
-            onChange={SelectHandler}
-            label="Category"
-            key={Math.random()}
-          ></Select>
+          {option.length > 1 ? (
+            <div>
+              <Select
+                options={option}
+                value={FirstOPtion}
+                onChange={SelectHandler}
+                label="Category"
+                key={Math.random()}
+              ></Select>
+            </div>
+          ) : null}
           <br />
           <br />
           {attributes.length === 0 ? null : (
@@ -152,10 +160,7 @@ export const LandingPage = () => {
                 key={Math.random()}
               ></Select>
               <br />
-              <TextField
-                onChange={InputHandler}
-                value={input}
-              ></TextField>
+              <TextField onChange={InputHandler} value={input}></TextField>
               <br />
               <Button outline onClick={AddHandler}>
                 Add

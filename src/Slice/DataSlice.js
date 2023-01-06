@@ -76,18 +76,22 @@ const dataSlice = createSlice({
     loader: false,
     attributes: [],
     err: " ",
+    showCat: "none"
   },
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state) => {
       state.loader = true;
+      state.showCat = "none"
     });
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loader = false;
+      state.showCat = "block"
     });
     builder.addCase(fetchData.rejected, (state, action) => {
       state.err = "Error in fetching data....:)";
       state.loader = false;
+      state.showCat = "none";
     });
     builder.addCase(fetchAttributes.pending, (state) => {
       state.loader = true;

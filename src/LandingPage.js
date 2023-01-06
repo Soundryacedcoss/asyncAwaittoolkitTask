@@ -140,7 +140,7 @@ export const LandingPage = () => {
           <br />
           {/* Main category dropdown..... */}
           {option.length > 1 ? (
-            <div>
+            <div style={{ display: output.showCat }}>
               <Select
                 options={option}
                 value={FirstOPtion}
